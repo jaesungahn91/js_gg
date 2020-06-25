@@ -18,9 +18,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 public class ThymeleafConfiguration {
 
     /**
-     * Template resolver spring resource template resolver.
-     *
-     * @return the spring resource template resolver
+     * 타임리프 뷰리저버
      */
     @Bean
     public SpringResourceTemplateResolver templateResolver() {

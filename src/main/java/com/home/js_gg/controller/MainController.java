@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/main")
 public class MainController {
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "home", method = RequestMethod.GET)
     public ModelAndView showMainPage(WebRequest request, Model model){
         return new ModelAndView("index");
     }
