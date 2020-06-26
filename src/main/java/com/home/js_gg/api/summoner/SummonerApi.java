@@ -44,7 +44,7 @@ public class SummonerApi {
         String url = basicUrl + "summoner/v4/summoners/by-name/" + userName;
         Map<String, Object> params = Maps.newHashMap();
         params.put("key", key);
-        String data = httpConnection.connectHttp(url, params, "GET");
+        String data = httpConnection.httpGetConnection(url, key);
         return data;
     }
 
