@@ -19,10 +19,10 @@ public class HttpConnection {   // https://digitalbourgeois.tistory.com/57 확�
      *
      * @param _url    the url
      * @param _params the params
-     * @param _method the method
+     * @param _key    the key
      * @return the string
      */
-//TODO : 리턴값을 상태메세지를 포함하는 도메인으로 만들어 전달
+    //TODO : 리턴값을 상태메세지를 포함하는 도메인으로 만들어 전달
     public String httpGetConnection(String _url, Map<String, Object> _params, String _key){
         String result = "";
         try {
