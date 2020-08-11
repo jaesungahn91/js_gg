@@ -2,7 +2,9 @@ package com.home.js_gg.config.db;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -22,7 +24,17 @@ import java.util.Properties;
 //@Configuration
 //@EnableTransactionManagement
 //@EnableJpaRepositories(basePackages= {"co.worker.studyfarm.repository"})
+@PropertySource("classpath:js.properties")
 public class DatabaseConfig {
+
+    @Value("${}")
+    private String driver;
+    @Value("${}")
+    private String url;
+    @Value("${}")
+    private String id;
+    @Value("${}")
+    private String pwd;
 
     /**
      * pgsql DataSource
