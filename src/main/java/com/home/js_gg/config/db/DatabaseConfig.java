@@ -44,10 +44,10 @@ public class DatabaseConfig {
     @Bean(name="dataSource")
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("");
-        dataSource.setUrl("");
-        dataSource.setUsername("");
-        dataSource.setPassword("");
+        dataSource.setDriverClassName(driver);
+        dataSource.setUrl(url);
+        dataSource.setUsername(id);
+        dataSource.setPassword(pwd);
 
         return dataSource;
     }
