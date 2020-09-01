@@ -21,7 +21,7 @@ public class RestResponseAspect {
      * @return the rest response
      * @throws Throwable the throwable
      */
-    @Around("execution(* com.home.js_gg.controller.*.*(..))")
+    @Around("execution(* com.home.js_gg.api.*.*(..))")
     public RestResponse<Object> restResponseHandler(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         return new RestResponse<>(HttpStatus.OK.value(), "성공하였습니다.", proceedingJoinPoint.proceed());
     }
