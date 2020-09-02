@@ -1,4 +1,4 @@
-package com.home.js_gg.controller.error;
+package com.home.js_gg.controller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;

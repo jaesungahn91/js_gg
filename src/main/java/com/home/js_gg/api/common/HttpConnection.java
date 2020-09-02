@@ -1,4 +1,4 @@
-package com.home.js_gg.api;
+package com.home.js_gg.api.common;
 
 import org.springframework.stereotype.Component;
 

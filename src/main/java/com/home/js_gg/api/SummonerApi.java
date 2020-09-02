@@ -1,7 +1,7 @@
-package com.home.js_gg.api.summoner;
+package com.home.js_gg.api;
 
 import com.google.common.collect.Maps;
-import com.home.js_gg.api.HttpConnection;
+import com.home.js_gg.api.common.HttpConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -15,7 +15,7 @@ import java.util.Map;
  */
 @RestController
 @PropertySource("classpath:js.properties")
-@RequestMapping(value = "summoner")
+@RequestMapping(value = "summoners")
 public class SummonerApi {
 
     @Value("${api.basic.url}")
@@ -36,7 +36,7 @@ public class SummonerApi {
      * @param userName the user name
      * @return the summoners info by name
      */
-    @RequestMapping(value = "byName/{userName}", method = RequestMethod.GET)
+    @RequestMapping(value = "by-name/{userName}", method = RequestMethod.GET)
     public String getSummonersInfoByName(
             @PathVariable(value = "userName", required = true) String userName
     ) throws IOException {
