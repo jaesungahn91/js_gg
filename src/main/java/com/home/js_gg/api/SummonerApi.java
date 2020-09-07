@@ -15,7 +15,7 @@ import java.util.Map;
  */
 @RestController
 @PropertySource("classpath:js.properties")
-@RequestMapping(value = "summoners")
+@RequestMapping(value = "/api/v1/summoners")
 public class SummonerApi {
 
     @Value("${api.basic.url}")

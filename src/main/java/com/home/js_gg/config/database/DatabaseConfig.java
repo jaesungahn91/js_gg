@@ -1,14 +1,19 @@
-package com.home.js_gg.config.db;
+package com.home.js_gg.config.database;
 
+import com.google.common.base.Strings;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -21,20 +26,25 @@ import java.util.Properties;
  * @file name DatabaseConfig.java
  * @date 2020. 7. 20
  */
-//@Configuration
-//@EnableTransactionManagement
-//@EnableJpaRepositories(basePackages= {"co.worker.studyfarm.repository"})
+@Slf4j
+@Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories(basePackages= {"com.home.js_gg.repository"})
 @PropertySource("classpath:js.properties")
 public class DatabaseConfig {
 
-    @Value("${}")
+    @Value("${database.driver}")
     private String driver;
-    @Value("${}")
+    @Value("${database.url}")
     private String url;
-    @Value("${}")
-    private String id;
-    @Value("${}")
-    private String pwd;
+    @Value("${database.username}")
+    private String username;
+    @Value("${database.password}")
+    private String password;
+    @Value("${database.dialect}")
+    private String dialect;
+    @Value("${database.defalut.schema}")
+    private String schema;
 
     /**
      * pgsql DataSource
@@ -43,11 +53,12 @@ public class DatabaseConfig {
      */
     @Bean(name="dataSource")
     public DataSource dataSource(){
+        log.info(driver);
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(driver);
         dataSource.setUrl(url);
-        dataSource.setUsername(id);
-        dataSource.setPassword(pwd);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
 
         return dataSource;
     }
@@ -92,15 +103,15 @@ public class DatabaseConfig {
 
     private Properties jpaHibernateProperties(){
         Properties props = new Properties();
-        props.setProperty("hibernate.dialect", "");
+        props.setProperty("hibernate.dialect", dialect);
         props.setProperty("hibernate.show_sql", "false");
         props.setProperty("hibernate.format_sql", "true");
         props.setProperty("hibernate.hbm2ddl.auto", "none");
 
-        String databaseScheme = "";
-//        if(!Strings.isNullOrEmpty(databaseScheme)){
-//            props.setProperty("hibernate.default_schema", "");
-//        }
+        String databaseScheme = schema;
+        if(!Strings.isNullOrEmpty(databaseScheme)){
+            props.setProperty("hibernate.default_schema", schema);
+        }
 
         props.setProperty("hibernate.cache.use_second_level_cache", "true");
         props.setProperty("hibernate.cache.use_query_cache", "true");
