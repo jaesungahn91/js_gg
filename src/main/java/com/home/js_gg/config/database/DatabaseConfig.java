@@ -45,6 +45,8 @@ public class DatabaseConfig {
     private String dialect;
     @Value("${database.defalut.schema}")
     private String schema;
+    @Value("${database.ddl.auto}")
+    private String auto;
 
     /**
      * pgsql DataSource
@@ -100,13 +102,12 @@ public class DatabaseConfig {
         return entityManagerFactoryBean;
     }
 
-
     private Properties jpaHibernateProperties(){
         Properties props = new Properties();
         props.setProperty("hibernate.dialect", dialect);
         props.setProperty("hibernate.show_sql", "false");
         props.setProperty("hibernate.format_sql", "true");
-        props.setProperty("hibernate.hbm2ddl.auto", "none");
+        props.setProperty("hibernate.hbm2ddl.auto", auto);
 
         String databaseScheme = schema;
         if(!Strings.isNullOrEmpty(databaseScheme)){

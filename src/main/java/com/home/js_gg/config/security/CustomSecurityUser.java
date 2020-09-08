@@ -1,6 +1,6 @@
 package com.home.js_gg.config.security;
 
-import com.home.js_gg.entity.Member;
+import com.home.js_gg.entity.Users;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,18 +16,11 @@ public class CustomSecurityUser extends User {
 
     private static final String ROLE_PREFIX = "ROLE_";
 
-    private Member member;
+    private Users users;
 
-//    public CustomSecurityUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-//        super(username, password, authorities);
-//    }
-//
-//    public CustomSecurityUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
-//        super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-//    }
-    public CustomSecurityUser(Member member){
-        super(member.getUid(), member.getUpw(), makeGrantedeAuth());
-        this.member = member;
+    public CustomSecurityUser(Users users){
+        super(users.getUser_id(), users.getUser_pwd(), makeGrantedeAuth());
+        this.users = users;
     }
 
     private static List<GrantedAuthority> makeGrantedeAuth() {
