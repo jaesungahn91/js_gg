@@ -11,14 +11,13 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
-@Setter // TODO: 삭제 예정 addparam 또는 response로 대체
 @Entity
 @Table(name = "user_info")
 public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String user_seq;
+    private Long user_seq;
     private String user_id;
     private String user_pwd;
     private String user_name;

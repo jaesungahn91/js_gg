@@ -1,12 +1,18 @@
 package com.home.js_gg.config.database;
 
 import com.google.common.base.Strings;
+import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -48,14 +54,29 @@ public class DatabaseConfig {
     @Value("${database.ddl.auto}")
     private String auto;
 
-    /**
-     * pgsql DataSource
-     *
-     * @return the data source
-     */
-    @Bean(name="dataSource")
+//    @Primary
+//    @Bean(name = "dataSource")
+//    public DataSource dataSource(){
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//        dataSource.setDriverClassName(driver);
+//        dataSource.setUrl(url);
+//        dataSource.setUsername(username);
+//        dataSource.setPassword(password);
+//        return dataSource;
+//    }
+//
+//    @Primary
+//    @Bean(name = "entityManagerFactory")
+//    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+//            EntityManagerFactoryBuilder builder, @Qualifier("dataSource") DataSource dataSource
+//    ){
+//        return builder.dataSource(dataSource).build();
+//    }
+
+
+
+    @Bean(name = "dataSource")
     public DataSource dataSource(){
-        log.info(driver);
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(driver);
         dataSource.setUrl(url);
@@ -96,7 +117,7 @@ public class DatabaseConfig {
         entityManagerFactoryBean.setJpaVendorAdapter(jpsAdapter);
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-        entityManagerFactoryBean.setPackagesToScan("co.worker");
+        entityManagerFactoryBean.setPackagesToScan("com.home.js_gg");
         entityManagerFactoryBean.setJpaProperties(jpaHibernateProperties());
 
         return entityManagerFactoryBean;
@@ -105,15 +126,12 @@ public class DatabaseConfig {
     private Properties jpaHibernateProperties(){
         Properties props = new Properties();
         props.setProperty("hibernate.dialect", dialect);
+        props.setProperty("hibernate.hbm2ddl.auto", auto);
         props.setProperty("hibernate.show_sql", "false");
         props.setProperty("hibernate.format_sql", "true");
-        props.setProperty("hibernate.hbm2ddl.auto", auto);
-
-        String databaseScheme = schema;
-        if(!Strings.isNullOrEmpty(databaseScheme)){
+        if (!Strings.isNullOrEmpty(schema)){
             props.setProperty("hibernate.default_schema", schema);
         }
-
         props.setProperty("hibernate.cache.use_second_level_cache", "true");
         props.setProperty("hibernate.cache.use_query_cache", "true");
         props.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
