@@ -17,10 +17,14 @@ public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_seq;
-    private String user_id;
-    private String user_pwd;
-    private String user_name;
+    @Column(name = "user_seq", nullable = false, updatable = false)
+    private Long userSeq;
+    @Column(name = "user_id")
+    private String userId;
+    @Column(name = "user_pwd")
+    private String userPwd;
+    @Column(name = "user_name")
+    private String userName;
 
 //    @CreationTimestamp
 //    private LocalDateTime regdate;

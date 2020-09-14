@@ -16,12 +16,13 @@ import java.util.Optional;
 @Slf4j
 public class CustomSecurityUsersService implements UserDetailsService {
 
-    private UsersRepository usersRepository;
+    @Autowired
+    UsersRepository usersRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String uEmail) throws UsernameNotFoundException {
-        Optional<Users> usersEmail = null;//usersRepository.findByUser_id(uEmail);
-        Users users = usersEmail.orElseThrow(() -> new UsernameNotFoundException("User not found by email : " + uEmail));
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        Optional<Users> userOp = usersRepository.findByUserId(userId);
+        Users users = userOp.orElseThrow(() -> new UsernameNotFoundException("User not found by email : " + userId));
 
         return new CustomSecurityUser(users);
     }

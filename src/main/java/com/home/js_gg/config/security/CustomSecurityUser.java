@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class CustomSecurityUser extends User {
     private Users users;
 
     public CustomSecurityUser(Users users){
-        super(users.getUser_id(), users.getUser_pwd(), makeGrantedeAuth());
+        super(users.getUserId(), new BCryptPasswordEncoder().encode(users.getUserPwd()), makeGrantedeAuth());
         this.users = users;
     }
 
