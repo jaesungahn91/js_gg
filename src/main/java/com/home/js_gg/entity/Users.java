@@ -1,18 +1,19 @@
 package com.home.js_gg.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Entity
 @Table(name = "user_info")
+@Builder
 public class Users {
 
     @Id
@@ -25,9 +26,10 @@ public class Users {
     private String userPwd;
     @Column(name = "user_name")
     private String userName;
-
-//    @CreationTimestamp
-//    private LocalDateTime regdate;
-//    @UpdateTimestamp
-//    private LocalDateTime updatedate;
+    @OneToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    List<Role> roles;
+    @CreationTimestamp
+    private LocalDateTime regDate;
+    @UpdateTimestamp
+    private LocalDateTime updateDate;
 }

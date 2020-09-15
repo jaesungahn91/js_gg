@@ -109,12 +109,6 @@ public class DatabaseConfig {
         return dataSource;
     }
 
-    /**
-     * Jpa transaction manager jpa transaction manager.
-     *
-     * @param entityManagerFactoryBean the entity manager factory bean
-     * @return the jpa transaction manager
-     */
     @Bean
     @Autowired
     public JpaTransactionManager jpaTransactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactoryBean){
@@ -123,43 +117,15 @@ public class DatabaseConfig {
         return transactionManager;
     }
 
-    /**
-     * Entity manager factory bean local container entity manager factory bean.
-     *
-     * @return the local container entity manager factory bean
-     */
-//    @Bean
-//    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
-//        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-//        HibernateJpaVendorAdapter jpsAdapter = new HibernateJpaVendorAdapter();
-////        String dbmode = System.getenv("");
-////        boolean bDbDevMode = StringUtil.toBoolean(dbmode);
-////        if(bDbDevMode){
-////            jpsAdapter.setShowSql(true);
-////        }
-//        entityManagerFactoryBean.setJpaVendorAdapter(jpsAdapter);
-//        entityManagerFactoryBean.setDataSource(dataSource());
-//        entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-//        entityManagerFactoryBean.setPackagesToScan("com.home.js_gg");
-//        entityManagerFactoryBean.setJpaProperties(jpaHibernateProperties());
-//
-//        return entityManagerFactoryBean;
-//    }
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         HibernateJpaVendorAdapter jpsAdapter = new HibernateJpaVendorAdapter();
-//        String dbmode = System.getenv("");
-//        boolean bDbDevMode = StringUtil.toBoolean(dbmode);
-//        if(bDbDevMode){
-//            jpsAdapter.setShowSql(true);
-//        }
         entityManagerFactoryBean.setJpaVendorAdapter(jpsAdapter);
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         entityManagerFactoryBean.setPackagesToScan("com.home.js_gg");
         entityManagerFactoryBean.setJpaProperties(jpaHibernateProperties());
-
         return entityManagerFactoryBean;
     }
 

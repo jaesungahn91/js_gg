@@ -1,5 +1,6 @@
 package com.home.js_gg.config.security;
 
+import com.home.js_gg.entity.Role;
 import com.home.js_gg.entity.Users;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,13 +21,15 @@ public class CustomSecurityUser extends User {
     private Users users;
 
     public CustomSecurityUser(Users users){
-        super(users.getUserId(), new BCryptPasswordEncoder().encode(users.getUserPwd()), makeGrantedeAuth());
+        super(users.getUserId(), new BCryptPasswordEncoder().encode(users.getUserPwd()), makeGrantedeAuth(users.getRoles()));
         this.users = users;
     }
 
-    private static List<GrantedAuthority> makeGrantedeAuth() {
+    private static List<GrantedAuthority> makeGrantedeAuth(List<Role> roles) {
         List<GrantedAuthority> list = new ArrayList();
-        list.add(new SimpleGrantedAuthority(ROLE_PREFIX + "ADMIN"));
+        roles.forEach(
+                role -> list.add(new SimpleGrantedAuthority(ROLE_PREFIX + role.getRoleName()))
+        );
         return list;
     }
 }

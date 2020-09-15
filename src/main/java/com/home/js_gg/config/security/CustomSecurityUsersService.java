@@ -4,6 +4,7 @@ import com.home.js_gg.entity.Users;
 import com.home.js_gg.repository.UsersRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,9 +22,9 @@ public class CustomSecurityUsersService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        Optional<Users> userOp = usersRepository.findByUserId(userId);
-        Users users = userOp.orElseThrow(() -> new UsernameNotFoundException("User not found by email : " + userId));
-
+        Users users = usersRepository.findByUserId(userId).orElseThrow(() -> new RuntimeException("User not found by email : " + userId));
+//        Optional<Users> userOp = usersRepository.findByUserId(userId);
+//        Users users = userOp.orElseThrow(() -> new UsernameNotFoundException("User not found by email : " + userId));
         return new CustomSecurityUser(users);
     }
 }
