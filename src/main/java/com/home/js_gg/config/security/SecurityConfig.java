@@ -37,37 +37,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 /* 비권한 */
                 .antMatchers("/summoner/**").permitAll()
+                .antMatchers("/").permitAll()
 
                 /* 권한 */
-                .antMatchers("/").hasAnyRole("BASIC", "MANAGER", "ADMIN")
+                .antMatchers("/test").hasAnyRole("BASIC", "MANAGER")
                 .antMatchers("/main").hasAnyRole("BASIC", "MANAGER", "ADMIN");
-        http.formLogin();
 
-//        http.csrf().disable().formLogin().loginPage("/login");
-
-//        http.exceptionHandling().accessDeniedPage("/accessDenied");
-
-//        http.logout().logoutUrl("/logout").invalidateHttpSession(true);
-
-//        http.userDetailsService(new CustomSecurityUsersService());
-
-//        http.authorizeRequests()
-//                .antMatchers("/member/**").authenticated()
-//                .antMatchers("/admin/**").authenticated()
-//                .antMatchers("/**").permitAll();
-//
 //        http.formLogin()
 //                .loginPage("/login")
 //                .defaultSuccessUrl("/")
 //                .permitAll();
-//
-//        http.logout()
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .logoutSuccessUrl("/login")
-//                .invalidateHttpSession(true);
-//
-//        http.exceptionHandling()
-//                .accessDeniedPage("/denied");
+        http.formLogin();
+
+        http.logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login")
+                .invalidateHttpSession(true);
+
+        http.exceptionHandling()
+                .accessDeniedPage("/denied");
 
     }
 

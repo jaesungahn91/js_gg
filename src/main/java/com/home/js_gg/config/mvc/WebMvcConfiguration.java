@@ -40,7 +40,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/login").setViewName("login/login");
-        registry.addViewController("/accessDenied").setViewName("errors/accessDenied");
+//        registry.addViewController("/accessDenied").setViewName("errors/accessDenied");
     }
 
     /**
