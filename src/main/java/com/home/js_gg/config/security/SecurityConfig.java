@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
 
                 /* 권한 */
-                .antMatchers("/test").hasAnyRole("BASIC", "MANAGER")
+                .antMatchers("/kk").hasAnyRole("BASIC", "MANAGER")
                 .antMatchers("/main").hasAnyRole("BASIC", "MANAGER", "ADMIN");
 
 //        http.formLogin()
