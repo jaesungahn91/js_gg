@@ -43,11 +43,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/kk").hasAnyRole("BASIC", "MANAGER")
                 .antMatchers("/main").hasAnyRole("BASIC", "MANAGER", "ADMIN");
 
-//        http.formLogin()
-//                .loginPage("/login")
-//                .defaultSuccessUrl("/")
-//                .permitAll();
-        http.formLogin();
+        http.formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/loginProcess")
+                .defaultSuccessUrl("/")
+                .permitAll();
+//        http.formLogin();
 
         http.logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

@@ -49,6 +49,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/css/**").addResourceLocations("/css/");
     }
 
     // TODO: controller 에서의 처리가아닌 컨포넌트로 핸들러를 만들어 사용하는 방법으로 전환
