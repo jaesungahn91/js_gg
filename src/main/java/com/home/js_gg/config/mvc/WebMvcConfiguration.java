@@ -16,6 +16,7 @@ import java.util.Properties;
  */
 @Configuration
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
+//    public class WebMvcConfiguration implements WebMvcConfigurer {
 
     /**
      * context path
