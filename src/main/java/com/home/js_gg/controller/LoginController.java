@@ -22,6 +22,4 @@ public class LoginController {
     public String accessDenied(){
         return "login/denied";
     }
-
-
 }
